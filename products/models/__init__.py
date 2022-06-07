@@ -3,4 +3,7 @@ from .category import Category
 from .product import Product
 from .shop_product import ShopProduct
 from .product_state import ProductState
-
+from .restrictions import Restriction
+from .products_basket import ProductsBasket
+from .user_calculation import UserCalculations
+from .restrictions import Restriction
