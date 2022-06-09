@@ -2,6 +2,7 @@ import json
 from unicodedata import decimal
 
 from dj_rest_auth.jwt_auth import JWTCookieAuthentication
+from django.contrib.auth.models import User
 from django.core import serializers
 from django.core.exceptions import ValidationError
 from django.shortcuts import render
@@ -16,9 +17,9 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.backends import TokenBackend
 
-from products.models import Category, ShopProduct, Restriction, Product, UserCalculations
+from products.models import Category, ShopProduct, Restriction, Product, UserCalculations, ProductsBasket
 from products.serializers.serializer import CategorySerializer, ShopProductSerializer, CategoryProductSerializer, \
-    RestrictionsSerializer, UserCalculationsSerializer
+    RestrictionsSerializer, UserCalculationsSerializer, ProductsBasketSerializer
 from products.service import optimize_products_bucket
 
 
@@ -27,6 +28,11 @@ class ProductCalcApiView(APIView):
     # permission_classes = [permissions.IsAuthenticated]
 
     # 1. List all
+    def get(self, request, *args, **kwargs):
+        baskets = ProductsBasket.objects.all()
+        serializer = ProductsBasketSerializer(baskets, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def post(self, request, *args, **kwargs):
         print(request.data)
         # serializer = SnippetSerializer(data=request.data)
@@ -37,6 +43,15 @@ class ProductCalcApiView(APIView):
         shop_products = products if len(products) else ShopProduct.objects.prefetch_related('states').all()
         products_list = prepare_products_for_calc(shop_products, len(products) == 0)
         sol = optimize_products_bucket(products_list, [], max_sum, energy_per_day)
+        if request.user.is_authenticated:
+            sol_json = json.dumps(sol, default=lambda o: o.__dict__, ensure_ascii=False, sort_keys=True, indent=4)
+            basket = dict()
+            basket['name'] = 'test basket'
+            basket['period'] = 1
+            basket['max_sum'] = max_sum
+            basket['user'] = request.user
+            basket['products'] = sol_json
+            ProductsBasket.objects.create(**basket)
         return Response({'optimization': sol, 'products': products_list}, status=status.HTTP_200_OK)
 
 
@@ -131,8 +146,8 @@ class UserCalculationsApiView(APIView):
     def get(self, request, *args, **kwargs):
         print(request.user.pk)
         print(request.user.is_authenticated)
-        userCalculations = UserCalculations.objects.all()
-        serializer = UserCalculationsSerializer(userCalculations, many=True)
+        userCalculations = User.objects.get(id=request.user.pk).usercalculations
+        serializer = UserCalculationsSerializer(userCalculations)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):

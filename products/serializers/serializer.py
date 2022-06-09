@@ -1,7 +1,7 @@
 # Serializers define the API representation.
 from rest_framework import serializers
 
-from products.models import Category, ShopProduct, Product, ProductState, Restriction, UserCalculations
+from products.models import Category, ShopProduct, Product, ProductState, Restriction, UserCalculations, ProductsBasket
 
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
@@ -63,19 +63,18 @@ class CategoryProductSerializer(serializers.HyperlinkedModelSerializer):
 class UserCalculationsSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserCalculations
-        fields = ['height', 'weight', 'years', 'sex', 'activity_level']
+        fields = ['id', 'height', 'weight', 'years', 'sex', 'activity_level']
 
 
-# user = models.OneToOneField(User, on_delete=models.CASCADE)
-# height = models.FloatField()
-# weight = models.FloatField()
-# years = models.IntegerField()
-# sex = models.CharField(max_length=2, choices=SEX_CHOICES)
-# activity_level = models.CharField(max_length=2, choices=ACTIVITY_CHOICES)
- # product = models.ForeignKey(Product, on_delete=models.CASCADE)
- #    name = models.CharField(max_length=350)
- #    price = models.DecimalField(max_digits=6, decimal_places=2)
- #    amount = models.DecimalField(max_digits=6, decimal_places=2)
- #    unit = models.CharField(max_length=3)
- #    states = models.ManyToManyField(ProductState)
- #    default = models.BooleanField(default=True)
+class ProductsBasketSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductsBasket
+        fields = ['id', 'name', 'creation_date', 'period', 'max_sum', 'products']
+
+
+# user = models.ForeignKey(User, on_delete=models.CASCADE)
+# name = models.CharField(max_length=250)
+# creation_date = models.DateTimeField(auto_now_add=True)
+# period = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(366)])
+# max_sum = models.FloatField()
+# products = models.JSONField()
