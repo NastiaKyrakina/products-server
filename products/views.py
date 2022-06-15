@@ -19,7 +19,7 @@ from rest_framework_simplejwt.backends import TokenBackend
 
 from products.models import Category, ShopProduct, Restriction, Product, UserCalculations, ProductsBasket
 from products.serializers.serializer import CategorySerializer, ShopProductSerializer, CategoryProductSerializer, \
-    RestrictionsSerializer, UserCalculationsSerializer, ProductsBasketSerializer
+    RestrictionsSerializer, UserCalculationsSerializer, ProductsBasketSerializer, ProductSerializer
 from products.service import optimize_products_bucket
 
 
@@ -39,10 +39,11 @@ class ProductCalcApiView(APIView):
         products = request.data.get('products')
         energy_per_day = request.data.get('energyAmount')
         max_sum = request.data.get('maxSum')
-        term = request.data.get('term')
+        term = int(request.data.get('term'))
         shop_products = products if len(products) else ShopProduct.objects.prefetch_related('states').all()
-        products_list = prepare_products_for_calc(shop_products, len(products) == 0)
-        sol = optimize_products_bucket(products_list, [], max_sum, energy_per_day)
+        restrictions = Restriction.objects.prefetch_related('product').all()
+        products_list = prepare_products_for_calc(shop_products, len(products) == 0, restrictions)
+        sol = optimize_products_bucket(products_list, [], max_sum, energy_per_day, term)
         if request.user.is_authenticated:
             sol_json = json.dumps(sol, default=lambda o: o.__dict__, ensure_ascii=False, sort_keys=True, indent=4)
             basket = dict()
@@ -55,10 +56,21 @@ class ProductCalcApiView(APIView):
         return Response({'optimization': sol, 'products': products_list}, status=status.HTTP_200_OK)
 
 
-def prepare_products_for_calc(shop_products, from_db):
+def prepare_products_for_calc(shop_products, from_db, restrictions):
+
     products_list = list()
     for product in shop_products:
         states = product.states.all() if from_db else product.states
+        parsed_restrictions = list()
+        product_restrictions = [x for x in restrictions if is_product_restriction(product.product.id, x)]
+        for restriction in product_restrictions:
+            amount = amount_to_gr(restriction.unit, float(str(restriction.amount)))
+            parsed_restrictions.append({
+                "comparator": restriction.comparator,
+                "amount": amount,
+                'unit': restriction.unit,
+            })
+        print(parsed_restrictions)
         for state in states:
             amount = amount_to_gr(product.unit, float(str(product.amount)))
             products_list.append({
@@ -71,9 +83,13 @@ def prepare_products_for_calc(shop_products, from_db):
                 'carbohydrates': float(str(state.carbohydrates)) / 100,
                 'proteins': float(str(state.proteins)) / 100,
                 'fats': float(str(state.fats)) / 100,
+                'restrictions': parsed_restrictions,
             })
     return products_list
 
+
+def is_product_restriction(product_id, restriction):
+    return product_id == restriction.product.id
 
 class CategoriesListApiView(APIView):
     # add permission to check if user is authenticated
@@ -112,7 +128,7 @@ class RestrictionListApiView(APIView):
         return Response(restrictionsSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ProductsListApiView(APIView):
+class ShopProductsListApiView(APIView):
     # add permission to check if user is authenticated
     # permission_classes = [permissions.IsAuthenticated]
 
@@ -125,6 +141,19 @@ class ProductsListApiView(APIView):
         serializer = ShopProductSerializer(shopProducts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+
+class ProductsListApiView(APIView):
+    # add permission to check if user is authenticated
+    # permission_classes = [permissions.IsAuthenticated]
+
+    # 1. List all
+    def get(self, request, *args, **kwargs):
+        '''
+        List all the todo items for given requested user
+        '''
+        shopProducts = Product.objects.prefetch_related('category').all()
+        serializer = ProductSerializer(shopProducts, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 def amount_to_gr(unit, amount):
     if unit == 'кг':

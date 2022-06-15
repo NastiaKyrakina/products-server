@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
+from products.models import ShopProduct, Restriction
 
 SEX_CHOICES = [
     ('M', 'Male'),
@@ -27,3 +28,13 @@ class UserCalculations(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class UserProduct(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    shop_product = models.ForeignKey(ShopProduct, on_delete=models.CASCADE)
+
+
+class UserRestriction(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    restriction = models.ForeignKey(Restriction, on_delete=models.CASCADE)

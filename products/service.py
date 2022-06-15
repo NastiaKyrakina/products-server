@@ -5,7 +5,38 @@ import numpy as np
 from scipy.optimize import minimize
 
 
-def optimize_products_bucket(products, constr, max_sum, kkal_per_day):
+energy_restrictions = dict({
+        'carbohydrates': (0.55, 0.6),
+        'proteins': (0.15, 0.20),
+        'fats': (0.2, 0.25),
+     })
+
+energy_per_components = dict({
+        'carbohydrates': 4,
+        'proteins': 4,
+        'fats': 9,
+     })
+
+
+def get_constraint_fun(name, constr_type, kkal_amount):
+    def min_constraint(x: list, products):
+        pr = products
+        sum_energy = 0
+        for index, xi in enumerate(x):
+            sum_energy = sum_energy + xi*pr[index].get(name)
+        return sum_energy*energy_per_components.get(name) - kkal_amount*energy_restrictions.get(name)[0]
+
+    def max_constraint(x: list, products):
+        pr = products
+        sum_energy = 0
+        for index, xi in enumerate(x):
+            sum_energy = sum_energy + xi*pr[index].get(name)
+        return kkal_amount*energy_restrictions.get(name)[1] - sum_energy*energy_per_components.get(name)
+    return min_constraint if constr_type == 'min' else max_constraint
+
+
+def optimize_products_bucket(products, constr, max_sum, kkal_per_day, days = 1):
+    kkal_amount = kkal_per_day*days
 
     def objective(x: list):
         pr = products
@@ -14,63 +45,17 @@ def optimize_products_bucket(products, constr, max_sum, kkal_per_day):
             sum_prices = sum_prices + xi*pr[index].get('price')
         return sum_prices
 
-    def constraint1(x: list):
-        pr = products
+    def price_constraint(x: list, pr):
         sum_prices = 0
         for index, xi in enumerate(x):
             sum_prices = sum_prices + xi*pr[index].get('price')
         return max_sum - sum_prices
 
-    def constraint2(x: list):
-        pr = products
+    def energy_constraint(x: list, pr):
         sum_energy = 0
         for index, xi in enumerate(x):
             sum_energy = sum_energy + xi*pr[index].get('energy')
-        return sum_energy - kkal_per_day
-
-    def constraint3(x: list):
-        pr = products
-        sum_energy = 0
-        for index, xi in enumerate(x):
-            sum_energy = sum_energy + xi*pr[index].get('carbohydrates')
-        return sum_energy*4 - kkal_per_day*0.55
-
-    def constraint4(x: list):
-        pr = products
-        sum_energy = 0
-        for index, xi in enumerate(x):
-            sum_energy = sum_energy + xi*pr[index].get('carbohydrates')
-        return kkal_per_day*0.6 - sum_energy*4
-
-
-    def constraint5(x: list):
-        pr = products
-        sum_energy = 0
-        for index, xi in enumerate(x):
-            sum_energy = sum_energy + xi*pr[index].get('proteins')
-        return sum_energy*4 - kkal_per_day*0.15
-
-    def constraint6(x: list):
-        pr = products
-        sum_energy = 0
-        for index, xi in enumerate(x):
-            sum_energy = sum_energy + xi*pr[index].get('fats')
-        return kkal_per_day*0.20 - sum_energy*9
-
-    def constraint7(x: list):
-        pr = products
-        sum_energy = 0
-        for index, xi in enumerate(x):
-            sum_energy = sum_energy + xi*pr[index].get('fats')
-        return sum_energy*9 - kkal_per_day*0.20
-
-    def constraint8(x: list):
-        pr = products
-        sum_energy = 0
-        for index, xi in enumerate(x):
-            sum_energy = sum_energy + xi*pr[index].get('proteins')
-        return kkal_per_day*0.25 - sum_energy*4
-
+        return sum_energy - kkal_amount
 
     def get_init_guess(x):
         guess_list = list()
@@ -82,26 +67,33 @@ def optimize_products_bucket(products, constr, max_sum, kkal_per_day):
         pr = products
         bounds = list()
         for index, xi in enumerate(pr):
-            bound = (0, 200)
+            equal_bound = [restriction for restriction in xi.get('restrictions') if restriction.get('comparator') == 'EQ']
+            if len(equal_bound):
+                bounds.append((equal_bound[0].get('amount')*days, equal_bound[0].get('amount')*days))
+                continue
+            min_restriction = [restriction for restriction in xi.get('restrictions') if restriction.get('comparator') == 'GT']
+            max_restriction = [restriction for restriction in xi.get('restrictions') if restriction.get('comparator') == 'LT']
+            min_bound = min_restriction[0].get('amount') if len(min_restriction) else 0
+            max_bound = max_restriction[0].get('amount') if len(max_restriction) else 200
+
+            bound = (min_bound*days, max_bound*days)
             bounds.append(bound)
         return bounds
 
-    con1 = {'type': 'ineq', 'fun': constraint1}
-    con2 = {'type': 'eq', 'fun': constraint2}
-    con3 = {'type': 'ineq', 'fun': constraint3}
-    con4 = {'type': 'ineq', 'fun': constraint4}
-    con5 = {'type': 'ineq', 'fun': constraint5}
-    con6 = {'type': 'ineq', 'fun': constraint6}
-    con7 = {'type': 'ineq', 'fun': constraint7}
-    con8 = {'type': 'ineq', 'fun': constraint8}
+    con1 = {'type': 'ineq', 'fun': price_constraint, 'args': [products]}
+    con2 = {'type': 'eq', 'fun': energy_constraint, 'args': [products]}
+    con3 = {'type': 'ineq', 'fun': get_constraint_fun('carbohydrates', 'min', kkal_amount), 'args': [products]}
+    con4 = {'type': 'ineq', 'fun': get_constraint_fun('carbohydrates', 'max', kkal_amount), 'args': [products]}
+    con5 = {'type': 'ineq', 'fun': get_constraint_fun('fats', 'min', kkal_amount), 'args': [products]}
+    con6 = {'type': 'ineq', 'fun': get_constraint_fun('fats', 'max', kkal_amount), 'args': [products]}
+    con7 = {'type': 'ineq', 'fun': get_constraint_fun('proteins', 'min', kkal_amount), 'args': [products]}
+    con8 = {'type': 'ineq', 'fun': get_constraint_fun('proteins', 'max', kkal_amount), 'args': [products]}
 
     constr = [con1, con2, con3, con4, con5, con6, con7, con8]
     bounds = get_bounds()
-
+    print('bounds', bounds)
     sol = minimize(objective, get_init_guess(products), method='SLSQP', bounds=bounds, constraints=constr)
     amounts = sol.x
-    sum1 = 0
-    sum2 = 0
     res = list()
     general = {
         'energy': 0,
@@ -122,7 +114,7 @@ def optimize_products_bucket(products, constr, max_sum, kkal_per_day):
                 'id': product.get('id'),
                 'name': product.get('name'),
                 'amount': round(amounts[index]),
-                'unit': product.get('unit'),
+                'unit': product.get('unit') if product.get('unit') == 'шт' else 'гр',
                 'price': round(amounts[index] * product.get('price'), 4),
                 'states': [{
                     'state': product.get('state'),
