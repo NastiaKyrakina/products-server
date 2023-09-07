@@ -1,0 +1,1829 @@
+[
+    {
+        "amount": 500.0,
+        "carbohydrates": 0.05,
+        "energy": 0.56,
+        "fats": 0.02,
+        "id": 97,
+        "name": "Йогурт натуральний несолодкий (біо)",
+        "price": 0.0702,
+        "proteins": 0.04,
+        "restrictions": [],
+        "unit": "мл"
+    },
+    {
+        "amount": 500.0,
+        "carbohydrates": 0.12,
+        "energy": 0.91,
+        "fats": 0.03,
+        "id": 98,
+        "name": "Йогурт фруктовий",
+        "price": 0.07966,
+        "proteins": 0.04,
+        "restrictions": [],
+        "unit": "мл"
+    },
+    {
+        "amount": 950.0,
+        "carbohydrates": 0.04,
+        "energy": 0.37,
+        "fats": 0.01,
+        "id": 100,
+        "name": "Кефір",
+        "price": 0.031578947368421054,
+        "proteins": 0.03,
+        "restrictions": [],
+        "unit": "мл"
+    },
+    {
+        "amount": 950.0,
+        "carbohydrates": 0.04,
+        "energy": 0.37,
+        "fats": 0.01,
+        "id": 101,
+        "name": "Кефір біфідок",
+        "price": 0.03694736842105263,
+        "proteins": 0.03,
+        "restrictions": [],
+        "unit": "мл"
+    },
+    {
+        "amount": 900.0,
+        "carbohydrates": 0.01,
+        "energy": 0.12,
+        "fats": 0.006999999999999999,
+        "id": 106,
+        "name": "Молоко",
+        "price": 0.027777777777777776,
+        "proteins": 0.005,
+        "restrictions": [
+            {
+                "amount": 100.0,
+                "comparator": "LT",
+                "unit": "мл"
+            }
+        ],
+        "unit": "мл"
+    },
+    {
+        "amount": 500.0,
+        "carbohydrates": 0.66,
+        "energy": 4.59,
+        "fats": 0.19,
+        "id": 107,
+        "name": "Молоко топлене",
+        "price": 0.06,
+        "proteins": 0.07,
+        "restrictions": [
+            {
+                "amount": 0.0,
+                "comparator": "EQ",
+                "unit": "мл"
+            }
+        ],
+        "unit": "мл"
+    },
+    {
+        "amount": 300.0,
+        "carbohydrates": 0.005,
+        "energy": 1.7,
+        "fats": 0.18,
+        "id": 131,
+        "name": "Оливки Іберіка зелені з кісточкою",
+        "price": 0.13733333333333334,
+        "proteins": 0.01,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 20.0,
+        "carbohydrates": 0.0,
+        "energy": 1.55,
+        "fats": 0.11,
+        "id": 1,
+        "name": "Яйця перепелині (20 шт)",
+        "price": 2.2035,
+        "proteins": 0.13,
+        "restrictions": [
+            {
+                "amount": 6.0,
+                "comparator": "LT",
+                "unit": "шт"
+            }
+        ],
+        "unit": "шт"
+    },
+    {
+        "amount": 10.0,
+        "carbohydrates": 0.008,
+        "energy": 1.6,
+        "fats": 0.1,
+        "id": 3,
+        "name": "Яйця курячі Ясенсвіт (С1 10 шт)",
+        "price": 3.3630000000000004,
+        "proteins": 0.12,
+        "restrictions": [
+            {
+                "amount": 2.0,
+                "comparator": "LT",
+                "unit": "шт"
+            },
+            {
+                "amount": 1.0,
+                "comparator": "GT",
+                "unit": "шт"
+            }
+        ],
+        "unit": "шт"
+    },
+    {
+        "amount": 450.0,
+        "carbohydrates": 0.54,
+        "energy": 2.28,
+        "fats": 0.01,
+        "id": 5,
+        "name": "Батон Рум'янець нарізка",
+        "price": 0.041999999999999996,
+        "proteins": 0.08,
+        "restrictions": [
+            {
+                "amount": 0.0,
+                "comparator": "EQ",
+                "unit": "гр"
+            }
+        ],
+        "unit": "гр"
+    },
+    {
+        "amount": 500.0,
+        "carbohydrates": 0.54,
+        "energy": 2.67,
+        "fats": 0.02,
+        "id": 6,
+        "name": "Батон Київський Нарізний нарізка",
+        "price": 0.0494,
+        "proteins": 0.08,
+        "restrictions": [
+            {
+                "amount": 0.0,
+                "comparator": "EQ",
+                "unit": "гр"
+            }
+        ],
+        "unit": "гр"
+    },
+    {
+        "amount": 500.0,
+        "carbohydrates": 0.54,
+        "energy": 2.67,
+        "fats": 0.02,
+        "id": 7,
+        "name": "Батон Київхліб Київський Нарізний",
+        "price": 0.048,
+        "proteins": 0.08,
+        "restrictions": [
+            {
+                "amount": 0.0,
+                "comparator": "EQ",
+                "unit": "гр"
+            }
+        ],
+        "unit": "гр"
+    },
+    {
+        "amount": 500.0,
+        "carbohydrates": 0.53,
+        "energy": 2.75,
+        "fats": 0.02,
+        "id": 8,
+        "name": "Батон Хлібодар Дніпровський пшеничний",
+        "price": 0.0208,
+        "proteins": 0.08,
+        "restrictions": [
+            {
+                "amount": 0.0,
+                "comparator": "EQ",
+                "unit": "гр"
+            }
+        ],
+        "unit": "гр"
+    },
+    {
+        "amount": 650.0,
+        "carbohydrates": 0.49,
+        "energy": 2.42,
+        "fats": 0.04,
+        "id": 9,
+        "name": "Хліб пшеничний",
+        "price": 0.034923076923076925,
+        "proteins": 0.11,
+        "restrictions": [
+            {
+                "amount": 0.0,
+                "comparator": "EQ",
+                "unit": "гр"
+            }
+        ],
+        "unit": "гр"
+    },
+    {
+        "amount": 600.0,
+        "carbohydrates": 0.49,
+        "energy": 2.42,
+        "fats": 0.04,
+        "id": 10,
+        "name": "Хліб пшеничний Цар Хліб нарізка",
+        "price": 0.0425,
+        "proteins": 0.11,
+        "restrictions": [
+            {
+                "amount": 0.0,
+                "comparator": "EQ",
+                "unit": "гр"
+            }
+        ],
+        "unit": "гр"
+    },
+    {
+        "amount": 950.0,
+        "carbohydrates": 0.5,
+        "energy": 2.26,
+        "fats": 0.006999999999999999,
+        "id": 11,
+        "name": "Хліб житній Український Столичний",
+        "price": 0.029894736842105262,
+        "proteins": 0.05,
+        "restrictions": [
+            {
+                "amount": 250.0,
+                "comparator": "LT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "гр"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.03,
+        "energy": 0.28,
+        "fats": 0.0024,
+        "id": 12,
+        "name": "Печериці",
+        "price": 0.10145,
+        "proteins": 0.03,
+        "restrictions": [
+            {
+                "amount": 400.0,
+                "comparator": "LT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 100.0,
+        "carbohydrates": 0.05,
+        "energy": 0.29,
+        "fats": 0.002,
+        "id": 13,
+        "name": "Цибуля зелена",
+        "price": 0.345,
+        "proteins": 0.02,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.07,
+        "energy": 0.44,
+        "fats": 0.0033,
+        "id": 14,
+        "name": "Цибуля порей",
+        "price": 0.07195,
+        "proteins": 0.02,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 70.0,
+        "carbohydrates": 0.09,
+        "energy": 0.56,
+        "fats": 0.0044,
+        "id": 15,
+        "name": "Петрушка",
+        "price": 0.38285714285714284,
+        "proteins": 0.04,
+        "restrictions": [
+            {
+                "amount": 150.0,
+                "comparator": "LT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "гр"
+    },
+    {
+        "amount": 170.0,
+        "carbohydrates": 0.02,
+        "energy": 0.25,
+        "fats": 0.006999999999999999,
+        "id": 16,
+        "name": "Салат Пучок-Свіжачок",
+        "price": 0.23470588235294118,
+        "proteins": 0.03,
+        "restrictions": [
+            {
+                "amount": 100.0,
+                "comparator": "EQ",
+                "unit": "гр"
+            }
+        ],
+        "unit": "гр"
+    },
+    {
+        "amount": 100.0,
+        "carbohydrates": 0.03,
+        "energy": 0.34,
+        "fats": 0.003,
+        "id": 17,
+        "name": "Кріп",
+        "price": 0.24,
+        "proteins": 0.03,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.05,
+        "energy": 0.27,
+        "fats": 0.0008,
+        "id": 18,
+        "name": "Капуста молода",
+        "price": 0.0429,
+        "proteins": 0.07,
+        "restrictions": [
+            {
+                "amount": 50.0,
+                "comparator": "GT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.04,
+        "energy": 0.31,
+        "fats": 0.0026,
+        "id": 19,
+        "name": "Капуста білокачанна",
+        "price": 0.02327,
+        "proteins": 0.02,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.19,
+        "energy": 0.85,
+        "fats": 0.001,
+        "id": 20,
+        "name": "Картопля",
+        "price": 0.01188,
+        "proteins": 0.02,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.12,
+        "energy": 0.61,
+        "fats": 0.004,
+        "id": 21,
+        "name": "Картопля молода",
+        "price": 0.046200000000000005,
+        "proteins": 0.02,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.19,
+        "energy": 0.85,
+        "fats": 0.001,
+        "id": 22,
+        "name": "Картопля рожева",
+        "price": 0.0134,
+        "proteins": 0.02,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.09,
+        "energy": 0.43,
+        "fats": 0.0025,
+        "id": 23,
+        "name": "Цибуля ріпчаста",
+        "price": 0.01893,
+        "proteins": 0.01,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.09,
+        "energy": 0.43,
+        "fats": 0.0025,
+        "id": 24,
+        "name": "Цибуля синя",
+        "price": 0.0419,
+        "proteins": 0.01,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.07,
+        "energy": 0.35,
+        "fats": 0.0022,
+        "id": 25,
+        "name": "Морква",
+        "price": 0.020300000000000002,
+        "proteins": 0.01,
+        "restrictions": [
+            {
+                "amount": 200.0,
+                "comparator": "LT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.02,
+        "energy": 0.14,
+        "fats": 0.0018,
+        "id": 26,
+        "name": "Огірки гладкі",
+        "price": 0.09973,
+        "proteins": 0.008199999999999999,
+        "restrictions": [
+            {
+                "amount": 30.0,
+                "comparator": "GT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.05,
+        "energy": 0.27,
+        "fats": 0.0,
+        "id": 30,
+        "name": "Перець болгарський жовтий",
+        "price": 0.13445,
+        "proteins": 0.01,
+        "restrictions": [
+            {
+                "amount": 80.0,
+                "comparator": "LT",
+                "unit": "гр"
+            },
+            {
+                "amount": 10.0,
+                "comparator": "GT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.04,
+        "energy": 0.2,
+        "fats": 0.002,
+        "id": 31,
+        "name": "Помідори червоні",
+        "price": 0.0834,
+        "proteins": 0.009000000000000001,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.04,
+        "energy": 0.2,
+        "fats": 0.002,
+        "id": 32,
+        "name": "Помідори рожеві",
+        "price": 0.14195,
+        "proteins": 0.009000000000000001,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.04,
+        "energy": 0.2,
+        "fats": 0.002,
+        "id": 33,
+        "name": "Помідори сливка",
+        "price": 0.1012,
+        "proteins": 0.009000000000000001,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.1,
+        "energy": 0.45,
+        "fats": 0.001,
+        "id": 34,
+        "name": "Буряк",
+        "price": 0.02145,
+        "proteins": 0.02,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.25,
+        "energy": 1.3,
+        "fats": 0.0027,
+        "id": 35,
+        "name": "Часник",
+        "price": 0.15658000000000002,
+        "proteins": 0.06,
+        "restrictions": [
+            {
+                "amount": 15.0,
+                "comparator": "LT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.25,
+        "energy": 1.3,
+        "fats": 0.0027,
+        "id": 36,
+        "name": "Часник молодий",
+        "price": 0.10645,
+        "proteins": 0.06,
+        "restrictions": [
+            {
+                "amount": 15.0,
+                "comparator": "LT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.11,
+        "energy": 0.5,
+        "fats": 0.0022,
+        "id": 37,
+        "name": "Апельсини",
+        "price": 0.03983,
+        "proteins": 0.06,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.11,
+        "energy": 0.5,
+        "fats": 0.0022,
+        "id": 38,
+        "name": "Апельсини Єгипет",
+        "price": 0.0499,
+        "proteins": 0.0092,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.11,
+        "energy": 0.5,
+        "fats": 0.0022,
+        "id": 39,
+        "name": "Апельсини преміум",
+        "price": 0.0545,
+        "proteins": 0.0092,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.22,
+        "energy": 0.94,
+        "fats": 0.01,
+        "id": 40,
+        "name": "Банани",
+        "price": 0.0469,
+        "proteins": 0.002,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.17,
+        "energy": 0.75,
+        "fats": 0.0,
+        "id": 41,
+        "name": "Виноград середній",
+        "price": 0.1699,
+        "proteins": 0.01,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.17,
+        "energy": 0.73,
+        "fats": 0.0,
+        "id": 42,
+        "name": "Виноград маленький",
+        "price": 0.1699,
+        "proteins": 0.01,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.06,
+        "energy": 0.36,
+        "fats": 0.0053,
+        "id": 43,
+        "name": "Лимони",
+        "price": 0.044700000000000004,
+        "proteins": 0.0066,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.12,
+        "energy": 0.43,
+        "fats": 0.003,
+        "id": 44,
+        "name": "Мандарини дрібні",
+        "price": 0.0464,
+        "proteins": 0.0072,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.12,
+        "energy": 0.43,
+        "fats": 0.003,
+        "id": 45,
+        "name": "Мандарини середні",
+        "price": 0.048799999999999996,
+        "proteins": 0.0072,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.12,
+        "energy": 0.43,
+        "fats": 0.003,
+        "id": 46,
+        "name": "Мандарини",
+        "price": 0.0518,
+        "proteins": 0.0072,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.12,
+        "energy": 0.43,
+        "fats": 0.003,
+        "id": 47,
+        "name": "Мандарини Іспанія",
+        "price": 0.0469,
+        "proteins": 0.0072,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.13,
+        "energy": 0.63,
+        "fats": 0.004,
+        "id": 48,
+        "name": "Яблука украинское",
+        "price": 0.01323,
+        "proteins": 0.0037,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.13,
+        "energy": 0.63,
+        "fats": 0.004,
+        "id": 49,
+        "name": "Яблука Айдаред",
+        "price": 0.012199999999999999,
+        "proteins": 0.0037,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 300.0,
+        "carbohydrates": 0.03,
+        "energy": 6.18,
+        "fats": 0.67,
+        "id": 50,
+        "name": "Майонез Чумак 67%",
+        "price": 0.10833333333333334,
+        "proteins": 0.001,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 300.0,
+        "carbohydrates": 0.03,
+        "energy": 6.06,
+        "fats": 0.67,
+        "id": 51,
+        "name": "Майонез Щедро 67%",
+        "price": 0.11159999999999999,
+        "proteins": 0.005,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 20.0,
+        "carbohydrates": 0.35,
+        "energy": 2.2,
+        "fats": 0.06,
+        "id": 52,
+        "name": "Приправа Еко до шашлику",
+        "price": 0.3225,
+        "proteins": 0.07,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 1500.0,
+        "carbohydrates": 0.0,
+        "energy": 0.0,
+        "fats": 0.0,
+        "id": 53,
+        "name": "Сіль Артемсіль йодована кухонна",
+        "price": 0.008733333333333333,
+        "proteins": 0.0,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 270.0,
+        "carbohydrates": 0.22,
+        "energy": 1.0,
+        "fats": 0.003,
+        "id": 54,
+        "name": "Кетчуп Торчин до шашлику",
+        "price": 0.065,
+        "proteins": 0.01,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 250.0,
+        "carbohydrates": 0.2,
+        "energy": 0.9,
+        "fats": 0.002,
+        "id": 55,
+        "name": "Кетчуп Чумак до шашлику",
+        "price": 0.0528,
+        "proteins": 0.01,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 140.0,
+        "carbohydrates": 0.08,
+        "energy": 0.63,
+        "fats": 0.02,
+        "id": 56,
+        "name": "Маринад Верес до шашлику",
+        "price": 0.14664285714285716,
+        "proteins": 0.02,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 350.0,
+        "carbohydrates": 0.16,
+        "energy": 0.79,
+        "fats": 0.0,
+        "id": 57,
+        "name": "Томатна паста Чумак",
+        "price": 0.1197142857142857,
+        "proteins": 0.04,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 10.0,
+        "carbohydrates": 0.39,
+        "energy": 2.51,
+        "fats": 0.03,
+        "id": 58,
+        "name": "Перець чорний горошок",
+        "price": 0.575,
+        "proteins": 0.1,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.01,
+        "energy": 1.17,
+        "fats": 0.05,
+        "id": 59,
+        "name": "Короп патраний",
+        "price": 0.12890000000000001,
+        "proteins": 0.16,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0013,
+        "energy": 1.79,
+        "fats": 0.13,
+        "id": 60,
+        "name": "Оселедець слабосолоний",
+        "price": 0.10590000000000001,
+        "proteins": 0.18,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0003,
+        "energy": 1.93,
+        "fats": 0.13,
+        "id": 61,
+        "name": "Скумбрія свіжеморожена",
+        "price": 0.10490000000000001,
+        "proteins": 0.19,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 120.0,
+        "carbohydrates": 0.08,
+        "energy": 0.7,
+        "fats": 0.0017000000000000001,
+        "id": 62,
+        "name": "Кава Nescafe Gold",
+        "price": 1.1375,
+        "proteins": 0.08,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 1500.0,
+        "carbohydrates": 0.0,
+        "energy": 0.0,
+        "fats": 0.0,
+        "id": 63,
+        "name": "Мінеральна вода Моршинська слабогазована",
+        "price": 0.00962,
+        "proteins": 0.0,
+        "restrictions": [],
+        "unit": "мл"
+    },
+    {
+        "amount": 950.0,
+        "carbohydrates": 0.1,
+        "energy": 0.41,
+        "fats": 0.0,
+        "id": 64,
+        "name": "Сік Наш Сік мультивітамін з м'якоттю",
+        "price": 0.033999999999999996,
+        "proteins": 0.0002,
+        "restrictions": [],
+        "unit": "мл"
+    },
+    {
+        "amount": 700.0,
+        "carbohydrates": 0.08,
+        "energy": 0.93,
+        "fats": 0.0,
+        "id": 65,
+        "name": "Вино Інкерман Шато Руж червоне",
+        "price": 0.08657142857142858,
+        "proteins": 0.0,
+        "restrictions": [],
+        "unit": "мл"
+    },
+    {
+        "amount": 500.0,
+        "carbohydrates": 0.0,
+        "energy": 0.0,
+        "fats": 0.0,
+        "id": 66,
+        "name": "Горілка Хлібний Дар Класична",
+        "price": 0.2003,
+        "proteins": 0.0,
+        "restrictions": [],
+        "unit": "мл"
+    },
+    {
+        "amount": 500.0,
+        "carbohydrates": 0.05,
+        "energy": 0.42,
+        "fats": 0.0,
+        "id": 67,
+        "name": "Пиво Чернігівське світле",
+        "price": 0.040600000000000004,
+        "proteins": 0.0,
+        "restrictions": [],
+        "unit": "мл"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.005,
+        "energy": 3.07,
+        "fats": 0.25,
+        "id": 68,
+        "name": "Ковбаса копчена Алан Брауншвейська сирокопчена",
+        "price": 0.5053,
+        "proteins": 0.19,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 3.06,
+        "fats": 0.28,
+        "id": 69,
+        "name": "Ковбаса копчена Глобіно салямі варено-копчена",
+        "price": 0.155,
+        "proteins": 0.13,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 2.5,
+        "fats": 0.22,
+        "id": 70,
+        "name": "Ковбаса варена Алан лікарська",
+        "price": 0.24780000000000002,
+        "proteins": 0.13,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 400.0,
+        "carbohydrates": 0.02,
+        "energy": 2.25,
+        "fats": 0.19,
+        "id": 71,
+        "name": "Ковбаса варена Алан молочна",
+        "price": 0.21475000000000002,
+        "proteins": 0.12,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.01,
+        "energy": 3.0,
+        "fats": 0.28,
+        "id": 72,
+        "name": "Ковбаса варена Ашан лікарська",
+        "price": 0.19690000000000002,
+        "proteins": 0.11,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.01,
+        "energy": 2.5,
+        "fats": 0.22,
+        "id": 73,
+        "name": "Ковбаса варена Глобино лікарська",
+        "price": 0.18569999999999998,
+        "proteins": 0.13,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 400.0,
+        "carbohydrates": 0.02,
+        "energy": 2.52,
+        "fats": 0.22,
+        "id": 74,
+        "name": "Ковбаса варена Ювілейний молочна",
+        "price": 0.26375,
+        "proteins": 0.12,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 4.89,
+        "fats": 0.5,
+        "id": 75,
+        "name": "Бекон Ятрань іспанський",
+        "price": 0.2515,
+        "proteins": 0.1,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.001,
+        "energy": 2.92,
+        "fats": 0.25,
+        "id": 76,
+        "name": "Буженина Ятрань",
+        "price": 0.3311,
+        "proteins": 0.16,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.01,
+        "energy": 3.1,
+        "fats": 0.24,
+        "id": 77,
+        "name": "Буженина Ятрань запечена з чорносливом",
+        "price": 0.3429,
+        "proteins": 0.19,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.026000000000000002,
+        "energy": 1.48,
+        "fats": 0.092,
+        "id": 78,
+        "name": "Яловичина гуляш",
+        "price": 0.24228,
+        "proteins": 0.14,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 2.33,
+        "fats": 0.187,
+        "id": 79,
+        "name": "Яловичина ребра",
+        "price": 0.16,
+        "proteins": 0.163,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 1.19,
+        "fats": 0.04,
+        "id": 80,
+        "name": "Курятина стегно",
+        "price": 0.08990000000000001,
+        "proteins": 0.2,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 1.19,
+        "fats": 0.03,
+        "id": 81,
+        "name": "Курятина гомілка",
+        "price": 0.0629,
+        "proteins": 0.21,
+        "restrictions": [
+            {
+                "amount": 100.0,
+                "comparator": "LT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 0.99,
+        "fats": 0.013000000000000001,
+        "id": 82,
+        "name": "Курятина філе",
+        "price": 0.1199,
+        "proteins": 0.215,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 1.19,
+        "fats": 0.04,
+        "id": 83,
+        "name": "Курятина Наша ряба стегно",
+        "price": 0.0999,
+        "proteins": 0.2,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 1.48,
+        "fats": 0.12,
+        "id": 84,
+        "name": "Курятина Наша ряба гомілка",
+        "price": 0.06995,
+        "proteins": 0.1,
+        "restrictions": [
+            {
+                "amount": 100.0,
+                "comparator": "LT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 0.99,
+        "fats": 0.013000000000000001,
+        "id": 85,
+        "name": "Курятина Наша ряба філе",
+        "price": 0.1489,
+        "proteins": 0.215,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 1.74,
+        "fats": 0.1,
+        "id": 86,
+        "name": "Свинина грудинка",
+        "price": 0.11745,
+        "proteins": 0.21,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 2.57,
+        "fats": 0.217,
+        "id": 87,
+        "name": "Свинина лопатка",
+        "price": 0.11743,
+        "proteins": 0.16,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 2.67,
+        "fats": 0.228,
+        "id": 88,
+        "name": "Свинина ошийок",
+        "price": 0.15969,
+        "proteins": 0.161,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 3.25,
+        "fats": 0.29,
+        "id": 89,
+        "name": "Свинина підчеревина",
+        "price": 0.1186,
+        "proteins": 0.15,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.03,
+        "energy": 2.77,
+        "fats": 0.23,
+        "id": 90,
+        "name": "Свинина ребра",
+        "price": 0.11993000000000001,
+        "proteins": 0.16,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.005,
+        "energy": 2.8,
+        "fats": 0.22,
+        "id": 91,
+        "name": "Свинина шашлик",
+        "price": 0.1445,
+        "proteins": 0.2,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 7.97,
+        "fats": 0.89,
+        "id": 92,
+        "name": "Сало домашнє",
+        "price": 0.159,
+        "proteins": 0.024,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 7.97,
+        "fats": 0.89,
+        "id": 93,
+        "name": "Сало солоне",
+        "price": 0.1825,
+        "proteins": 0.024,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.0,
+        "energy": 2.05,
+        "fats": 0.18,
+        "id": 94,
+        "name": "Сардельки Алан Женевські з сиром",
+        "price": 0.23193,
+        "proteins": 0.11,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.03,
+        "energy": 3.66,
+        "fats": 0.35,
+        "id": 95,
+        "name": "Сардельки Ятрань молочні",
+        "price": 0.10457,
+        "proteins": 0.1,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.03,
+        "energy": 2.21,
+        "fats": 0.17,
+        "id": 96,
+        "name": "Сосиски Бащинський філейні",
+        "price": 0.18433000000000002,
+        "proteins": 0.13,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 580.0,
+        "carbohydrates": 0.07,
+        "energy": 0.68,
+        "fats": 0.02,
+        "id": 99,
+        "name": "Йогурт Активіа Класичний 1,5%",
+        "price": 0.07155172413793104,
+        "proteins": 0.04,
+        "restrictions": [],
+        "unit": "мл"
+    },
+    {
+        "amount": 950.0,
+        "carbohydrates": 0.04,
+        "energy": 0.49,
+        "fats": 0.02,
+        "id": 102,
+        "name": "Кефір Селянський 2,5%",
+        "price": 0.036768421052631575,
+        "proteins": 0.03,
+        "restrictions": [],
+        "unit": "мл"
+    },
+    {
+        "amount": 200.0,
+        "carbohydrates": 0.0,
+        "energy": 6.5,
+        "fats": 0.72,
+        "id": 103,
+        "name": "Маргарин Олком 70%",
+        "price": 0.096,
+        "proteins": 0.0,
+        "restrictions": [
+            {
+                "amount": 0.0,
+                "comparator": "EQ",
+                "unit": "гр"
+            }
+        ],
+        "unit": "гр"
+    },
+    {
+        "amount": 200.0,
+        "carbohydrates": 0.01,
+        "energy": 6.63,
+        "fats": 0.72,
+        "id": 104,
+        "name": "Масло Селянське 72,5%",
+        "price": 0.29715,
+        "proteins": 0.008,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 200.0,
+        "carbohydrates": 0.01,
+        "energy": 6.54,
+        "fats": 0.73,
+        "id": 105,
+        "name": "Масло Яготинське 73%",
+        "price": 0.322,
+        "proteins": 0.008,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 900.0,
+        "carbohydrates": 0.05,
+        "energy": 0.4,
+        "fats": 0.01,
+        "id": 108,
+        "name": "Молоко Простоквашино 1%",
+        "price": 0.036555555555555556,
+        "proteins": 0.03,
+        "restrictions": [
+            {
+                "amount": 100.0,
+                "comparator": "LT",
+                "unit": "мл"
+            }
+        ],
+        "unit": "мл"
+    },
+    {
+        "amount": 900.0,
+        "carbohydrates": 0.05,
+        "energy": 0.53,
+        "fats": 0.03,
+        "id": 109,
+        "name": "Молоко Яготинське 2,6%",
+        "price": 0.04097777777777778,
+        "proteins": 0.03,
+        "restrictions": [
+            {
+                "amount": 100.0,
+                "comparator": "LT",
+                "unit": "мл"
+            }
+        ],
+        "unit": "мл"
+    },
+    {
+        "amount": 200.0,
+        "carbohydrates": 0.04,
+        "energy": 1.18,
+        "fats": 0.1,
+        "id": 110,
+        "name": "Вершки Простоквашино 10%",
+        "price": 0.098,
+        "proteins": 0.03,
+        "restrictions": [],
+        "unit": "мл"
+    },
+    {
+        "amount": 350.0,
+        "carbohydrates": 0.03,
+        "energy": 1.58,
+        "fats": 0.15,
+        "id": 111,
+        "name": "Сметана Президент 15%",
+        "price": 0.09714285714285714,
+        "proteins": 0.03,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 340.0,
+        "carbohydrates": 0.03,
+        "energy": 1.98,
+        "fats": 0.2,
+        "id": 112,
+        "name": "Сметана Простоквашино 20%",
+        "price": 0.12441176470588235,
+        "proteins": 0.02,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 70.0,
+        "carbohydrates": 0.08,
+        "energy": 1.9,
+        "fats": 0.13,
+        "id": 113,
+        "name": "Сир плавлений Весела Корівка вершковий 38%",
+        "price": 0.2414285714285714,
+        "proteins": 0.1,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 70.0,
+        "carbohydrates": 0.02,
+        "energy": 2.6,
+        "fats": 0.54,
+        "id": 114,
+        "name": "Сир плавлений Ферма Дружба 55%",
+        "price": 0.21857142857142858,
+        "proteins": 0.1,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.005,
+        "energy": 3.41,
+        "fats": 0.26,
+        "id": 115,
+        "name": "Сир твердий Звени Гора голандський 45%",
+        "price": 0.3501,
+        "proteins": 0.26,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.05,
+        "energy": 3.47,
+        "fats": 0.28,
+        "id": 116,
+        "name": "Сир твердий Звени Гора голандський 50%",
+        "price": 0.33635000000000004,
+        "proteins": 0.22,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.005,
+        "energy": 3.49,
+        "fats": 0.28,
+        "id": 117,
+        "name": "Сир твердий Комо російський 50%",
+        "price": 0.30589999999999995,
+        "proteins": 0.22,
+        "restrictions": [],
+        "unit": "кг"
+    },
+    {
+        "amount": 300.0,
+        "carbohydrates": 0.03,
+        "energy": 1.58,
+        "fats": 0.09,
+        "id": 118,
+        "name": "Сир кисломолочний Простоквашино 9%",
+        "price": 0.2,
+        "proteins": 0.16,
+        "restrictions": [
+            {
+                "amount": 150.0,
+                "comparator": "LT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "гр"
+    },
+    {
+        "amount": 400.0,
+        "carbohydrates": 0.06,
+        "energy": 0.36,
+        "fats": 0.0,
+        "id": 119,
+        "name": "Зелений горошок Верес",
+        "price": 0.082175,
+        "proteins": 0.03,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 470.0,
+        "carbohydrates": 0.07,
+        "energy": 0.68,
+        "fats": 0.04,
+        "id": 120,
+        "name": "Ікра з кабачків",
+        "price": 0.0653191489361702,
+        "proteins": 0.01,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 500.0,
+        "carbohydrates": 0.07,
+        "energy": 0.68,
+        "fats": 0.04,
+        "id": 121,
+        "name": "Ікра з кабачків Верес",
+        "price": 0.07981999999999999,
+        "proteins": 0.01,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 420.0,
+        "carbohydrates": 0.11,
+        "energy": 0.54,
+        "fats": 0.0,
+        "id": 122,
+        "name": "Кукурудза цукрова",
+        "price": 0.05440476190476191,
+        "proteins": 0.02,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 340.0,
+        "carbohydrates": 0.2,
+        "energy": 1.12,
+        "fats": 0.01,
+        "id": 123,
+        "name": "Кукурудза Бондюель",
+        "price": 0.12014705882352941,
+        "proteins": 0.03,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 500.0,
+        "carbohydrates": 0.04,
+        "energy": 0.17,
+        "fats": 0.0,
+        "id": 124,
+        "name": "Огірки Верес мариновані",
+        "price": 0.1216,
+        "proteins": 0.003,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 920.0,
+        "carbohydrates": 0.01,
+        "energy": 0.07,
+        "fats": 0.0,
+        "id": 125,
+        "name": "Огірки Ніжин консервовані",
+        "price": 0.1053804347826087,
+        "proteins": 0.004,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 170.0,
+        "carbohydrates": 0.005,
+        "energy": 1.7,
+        "fats": 0.18,
+        "id": 126,
+        "name": "Оливки Іберіка зелені без кісточки",
+        "price": 0.1547058823529412,
+        "proteins": 0.01,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 300.0,
+        "carbohydrates": 0.03,
+        "energy": 1.11,
+        "fats": 0.1,
+        "id": 127,
+        "name": "Оливки Іберіка чорні без кісточки",
+        "price": 0.13799999999999998,
+        "proteins": 0.01,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 300.0,
+        "carbohydrates": 0.001,
+        "energy": 1.57,
+        "fats": 0.17,
+        "id": 128,
+        "name": "Оливки Іберіка чорні з кісточкою",
+        "price": 0.13733333333333334,
+        "proteins": 0.005,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 230.0,
+        "carbohydrates": 0.0,
+        "energy": 1.54,
+        "fats": 0.1,
+        "id": 129,
+        "name": "Сардини натуральні",
+        "price": 0.2108695652173913,
+        "proteins": 0.16,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 150.0,
+        "carbohydrates": 0.0,
+        "energy": 3.56,
+        "fats": 0.32,
+        "id": 130,
+        "name": "Шпроти Аквамарин в олії",
+        "price": 0.3193333333333333,
+        "proteins": 0.17,
+        "restrictions": [],
+        "unit": "гр"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.2,
+        "energy": 1.05,
+        "fats": 0.0062,
+        "id": 132,
+        "name": "Гречка",
+        "price": 0.0599,
+        "proteins": 0.03,
+        "restrictions": [
+            {
+                "amount": 200.0,
+                "comparator": "LT",
+                "unit": "гр"
+            },
+            {
+                "amount": 30.0,
+                "comparator": "GT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.71,
+        "energy": 3.65,
+        "fats": 0.03,
+        "id": 133,
+        "name": "Пшоно",
+        "price": 0.025,
+        "proteins": 0.12,
+        "restrictions": [
+            {
+                "amount": 100.0,
+                "comparator": "LT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.77,
+        "energy": 3.23,
+        "fats": 0.006,
+        "id": 134,
+        "name": "Рис довгий",
+        "price": 0.05115,
+        "proteins": 0.07,
+        "restrictions": [
+            {
+                "amount": 100.0,
+                "comparator": "LT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.76,
+        "energy": 3.47,
+        "fats": 0.01,
+        "id": 135,
+        "name": "Рис круглий",
+        "price": 0.0554,
+        "proteins": 0.07,
+        "restrictions": [
+            {
+                "amount": 100.0,
+                "comparator": "LT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.71,
+        "energy": 3.63,
+        "fats": 0.01,
+        "id": 136,
+        "name": "Вермішель коротка",
+        "price": 0.028399999999999998,
+        "proteins": 0.15,
+        "restrictions": [
+            {
+                "amount": 0.0,
+                "comparator": "EQ",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 870.0,
+        "carbohydrates": 0.0,
+        "energy": 8.97,
+        "fats": 1.0,
+        "id": 138,
+        "name": "Олія Щедрий Дар рафінована",
+        "price": 0.0706896551724138,
+        "proteins": 0.0,
+        "restrictions": [
+            {
+                "amount": 20.0,
+                "comparator": "LT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "мл"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 0.7,
+        "energy": 3.33,
+        "fats": 0.01,
+        "id": 139,
+        "name": "Борошно Хуторок пшеничне",
+        "price": 0.0253,
+        "proteins": 0.1,
+        "restrictions": [
+            {
+                "amount": 100.0,
+                "comparator": "LT",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    },
+    {
+        "amount": 1000.0,
+        "carbohydrates": 1.0,
+        "energy": 4.01,
+        "fats": 0.0,
+        "id": 140,
+        "name": "Цукор кристалічний",
+        "price": 0.0269,
+        "proteins": 0.0,
+        "restrictions": [
+            {
+                "amount": 0.0,
+                "comparator": "EQ",
+                "unit": "гр"
+            }
+        ],
+        "unit": "кг"
+    }
+]

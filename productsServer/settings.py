@@ -82,12 +82,17 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
+REST_AUTH_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'auth.custom_serializers.CustomLoginSerializer',
+}
+
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'products-auth'
 # JWT_AUTH_REFRESH_COOKIE = 'products-refresh-token'
 JWT_AUTH = {
-    'JWT_ALLOW_REFRESH': False,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600*1000*1000),
+    'JWT_ALLOW_REFRESH': True,
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=4),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
 }
 
 INSTALLED_APPS = [
@@ -156,7 +161,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'postgres',
         'USER': 'west',
-        'PASSWORD': '1111',
+        'PASSWORD': 'sR34G7ytCefsf2',
         'HOST': 'db',
         'PORT': 5432,
     }
@@ -175,10 +180,56 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    # },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'validators.password_validation.SymbolsIncludesValidator',
     },
 ]
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "filters": {
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+        "file": {
+            "level": "INFO",
+            "class": "logging.FileHandler",
+            "filename": "logs/debug.log",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console", "file"],
+            "propagate": True,
+        },
+        "auth.custom_serializers": {
+            "handlers": ["console", "file"],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+    },
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/

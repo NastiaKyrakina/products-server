@@ -18,7 +18,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from products import views
 from products.views import CategoriesListApiView, ShopProductsListApiView, ProductCalcApiView, RestrictionListApiView, \
-    UserCalculationsApiView, ProductsListApiView
+    UserCalculationsApiView, ProductsListApiView, SecurityQuestionsApiView
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -30,4 +30,5 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('user', UserCalculationsApiView.as_view()),
+    path('security/questions', SecurityQuestionsApiView.as_view()),
 ]

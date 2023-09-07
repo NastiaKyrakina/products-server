@@ -1,4 +1,6 @@
 import json
+import logging
+from random import random, randrange
 from unicodedata import decimal
 
 from dj_rest_auth.jwt_auth import JWTCookieAuthentication
@@ -18,10 +20,13 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.backends import TokenBackend
 
 from products.models import Category, ShopProduct, Restriction, Product, UserCalculations, ProductsBasket
+from products.models.security_settings import SecurityQuestions
 from products.serializers.serializer import CategorySerializer, ShopProductSerializer, CategoryProductSerializer, \
-    RestrictionsSerializer, UserCalculationsSerializer, ProductsBasketSerializer, ProductSerializer
+    RestrictionsSerializer, UserCalculationsSerializer, ProductsBasketSerializer, ProductSerializer, \
+    SecurityQuestionsSerializer
 from products.service import optimize_products_bucket
 
+logger = logging.getLogger('django')
 
 class ProductCalcApiView(APIView):
     # add permission to check if user is authenticated
@@ -173,13 +178,13 @@ class UserCalculationsApiView(APIView):
     # permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
-        print(request.user.pk)
-        print(request.user.is_authenticated)
+        logger.info("Customer " + str(request.user.pk) + " request data for calculations")
         userCalculations = User.objects.get(id=request.user.pk).usercalculations
         serializer = UserCalculationsSerializer(userCalculations)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request, *args, **kwargs):
+        logger.info("Customer " + str(request.user.pk) + " send data for calculations")
         user = request.user
         data = request.data.copy()
         data['user'] = user
@@ -189,3 +194,30 @@ class UserCalculationsApiView(APIView):
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
+
+
+class SecurityQuestionsApiView(APIView):
+    def get(self, request, *args, **kwargs):
+        random_questions = []
+        for i in range(0, 3):
+            question_id = randrange(1, 20)
+            random_questions.append(SecurityQuestions.objects.get(id=question_id))
+        serializer = SecurityQuestionsSerializer(random_questions, many=True)
+        logger.info("Security Questions was send to customer " + str(request.user.pk))
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, *args, **kwargs):
+        answers = SecurityQuestions.objects.get(pk=request.data.get('answers'))
+        questions = SecurityQuestions.objects.all()
+        allAnswersCorrect = True
+        for answer in answers:
+            relatesCorrectAnswer = questions.get(id=answer.id)
+            if answer.answer != relatesCorrectAnswer.answer:
+                allAnswersCorrect = False
+                break
+
+        if allAnswersCorrect:
+            logger.info("Customer " + str(request.user.pk) + " identified")
+            return Response(status=status.HTTP_201_CREATED)
+        logger.info("Customer " + str(request.user.pk) + " not identified")
+        return Response(status=status.HTTP_404_NOT_FOUND)

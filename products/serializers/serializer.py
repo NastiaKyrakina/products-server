@@ -2,6 +2,7 @@
 from rest_framework import serializers
 
 from products.models import Category, ShopProduct, Product, ProductState, Restriction, UserCalculations, ProductsBasket
+from products.models.security_settings import SecurityQuestions
 
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
@@ -78,3 +79,8 @@ class ProductsBasketSerializer(serializers.ModelSerializer):
 # period = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(366)])
 # max_sum = models.FloatField()
 # products = models.JSONField()
+
+class SecurityQuestionsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SecurityQuestions
+        fields = ['id', 'question']
