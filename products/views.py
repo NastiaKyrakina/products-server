@@ -19,14 +19,23 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.backends import TokenBackend
 
+from products import product_prices_parcer
 from products.models import Category, ShopProduct, Restriction, Product, UserCalculations, ProductsBasket
-from products.models.security_settings import SecurityQuestions
+from products.models.diet import Diet
 from products.serializers.serializer import CategorySerializer, ShopProductSerializer, CategoryProductSerializer, \
-    RestrictionsSerializer, UserCalculationsSerializer, ProductsBasketSerializer, ProductSerializer, \
-    SecurityQuestionsSerializer
+    RestrictionsSerializer, UserCalculationsSerializer, ProductsBasketSerializer, ProductSerializer, DietSerializer
 from products.service import optimize_products_bucket
+from datetime import datetime
+
 
 logger = logging.getLogger('django')
+
+default_energy_restrictions = dict({
+        'carbohydrates': (0.55, 0.6),
+        'proteins': (0.15, 0.20),
+        'fats': (0.2, 0.25),
+     })
+
 
 class ProductCalcApiView(APIView):
     # add permission to check if user is authenticated
@@ -42,17 +51,24 @@ class ProductCalcApiView(APIView):
         print(request.data)
         # serializer = SnippetSerializer(data=request.data)
         products = request.data.get('products')
+        diet_id = request.data.get('dietId')
+        custom_energy_restrictions = request.data.get('energyRestrictions')
         energy_per_day = request.data.get('energyAmount')
         max_sum = request.data.get('maxSum')
         term = int(request.data.get('term'))
         shop_products = products if len(products) else ShopProduct.objects.prefetch_related('states').all()
         restrictions = Restriction.objects.prefetch_related('product').all()
         products_list = prepare_products_for_calc(shop_products, len(products) == 0, restrictions)
-        sol = optimize_products_bucket(products_list, [], max_sum, energy_per_day, term)
+
+        energy_restrictions = custom_energy_restrictions if custom_energy_restrictions else default_energy_restrictions
+
+        sol = optimize_products_bucket(products_list, [], max_sum, energy_per_day, energy_restrictions, term)
         if request.user.is_authenticated:
             sol_json = json.dumps(sol, default=lambda o: o.__dict__, ensure_ascii=False, sort_keys=True, indent=4)
             basket = dict()
-            basket['name'] = 'test basket'
+            now = datetime.now()
+            t_string = now.strftime("%d/%m/%Y %H:%M:%S")
+            basket['name'] = 'Список за ' + t_string
             basket['period'] = 1
             basket['max_sum'] = max_sum
             basket['user'] = request.user
@@ -109,6 +125,26 @@ class CategoriesListApiView(APIView):
         serializer = CategoryProductSerializer(categories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+class ProductsBasketApiView(APIView):
+    # add permission to check if user is authenticated
+    # permission_classes = [permissions.IsAuthenticated]
+    # 1. List all
+
+    def get(self, request, *args, **kwargs):
+        print(kwargs['id']);
+        basket = ProductsBasket.objects.get(id=kwargs['id'])
+        serializer = ProductsBasketSerializer(basket)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    # def post(self, request, *args, **kwargs):
+    #     product = Product.objects.get(pk=request.data.get('product'))
+    #     data = request.data.copy()
+    #     data['product'] = product
+    #     restrictionsSerializer = RestrictionsSerializer(data=data)
+    #     if restrictionsSerializer.is_valid():
+    #         Restriction.objects.create(**data)
+    #         return Response(restrictionsSerializer.data, status=status.HTTP_201_CREATED)
+    #     return Response(restrictionsSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class RestrictionListApiView(APIView):
     # add permission to check if user is authenticated
@@ -160,6 +196,19 @@ class ProductsListApiView(APIView):
         serializer = ProductSerializer(shopProducts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+class DietsListApiView(APIView):
+    # add permission to check if user is authenticated
+    # permission_classes = [permissions.IsAuthenticated]
+
+    # 1. List all
+    def get(self, request, *args, **kwargs):
+        '''
+        List all the todo items for given requested user
+        '''
+        diets = Diet.objects.all()
+        serializer = DietSerializer(diets, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 def amount_to_gr(unit, amount):
     if unit == 'кг':
         return amount * 1000
@@ -195,29 +244,17 @@ class UserCalculationsApiView(APIView):
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
-
-class SecurityQuestionsApiView(APIView):
+class ProductPricesParserApiView(APIView):
     def get(self, request, *args, **kwargs):
-        random_questions = []
-        for i in range(0, 3):
-            question_id = randrange(1, 20)
-            random_questions.append(SecurityQuestions.objects.get(id=question_id))
-        serializer = SecurityQuestionsSerializer(random_questions, many=True)
-        logger.info("Security Questions was send to customer " + str(request.user.pk))
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def post(self, request, *args, **kwargs):
-        answers = SecurityQuestions.objects.get(pk=request.data.get('answers'))
-        questions = SecurityQuestions.objects.all()
-        allAnswersCorrect = True
-        for answer in answers:
-            relatesCorrectAnswer = questions.get(id=answer.id)
-            if answer.answer != relatesCorrectAnswer.answer:
-                allAnswersCorrect = False
-                break
-
-        if allAnswersCorrect:
-            logger.info("Customer " + str(request.user.pk) + " identified")
-            return Response(status=status.HTTP_201_CREATED)
-        logger.info("Customer " + str(request.user.pk) + " not identified")
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        product_prices = product_prices_parcer.parce_page()
+        print(product_prices)
+        for product in product_prices:
+            price = product.get('average')[0].get('price').replace(',', '.')
+            print('Name: ' + product.get('name'))
+            print('price: ' + price)
+            try:
+                product_in_shop = ShopProduct.objects.filter(name=product.get('name')).update(**{'price': float(price)})
+            except ShopProduct.DoesNotExist:
+                print('Can`t update product price')
+            print('__________________')
+        return HttpResponse("Hello, world. You're at the polls index.")

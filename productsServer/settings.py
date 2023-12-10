@@ -86,14 +86,6 @@ REST_AUTH_SERIALIZERS = {
     'LOGIN_SERIALIZER': 'auth.custom_serializers.CustomLoginSerializer',
 }
 
-REST_USE_JWT = True
-JWT_AUTH_COOKIE = 'products-auth'
-# JWT_AUTH_REFRESH_COOKIE = 'products-refresh-token'
-JWT_AUTH = {
-    'JWT_ALLOW_REFRESH': True,
-    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(minutes=4),
-    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
-}
 
 INSTALLED_APPS = [
     'products.apps.ProductsConfig',
@@ -187,6 +179,16 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'validators.password_validation.SymbolsIncludesValidator',
     },
 ]
+
+REST_USE_JWT = True
+JWT_AUTH_COOKIE = 'products-auth'
+# JWT_AUTH_REFRESH_COOKIE = 'products-refresh-token'
+JWT_AUTH = {
+    'JWT_ALLOW_REFRESH': True,
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(hours=1),
+    'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
+}
+
 
 LOGGING = {
     "version": 1,

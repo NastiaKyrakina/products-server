@@ -2,7 +2,7 @@
 from rest_framework import serializers
 
 from products.models import Category, ShopProduct, Product, ProductState, Restriction, UserCalculations, ProductsBasket
-from products.models.security_settings import SecurityQuestions
+from products.models.diet import Diet
 
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
@@ -80,7 +80,17 @@ class ProductsBasketSerializer(serializers.ModelSerializer):
 # max_sum = models.FloatField()
 # products = models.JSONField()
 
-class SecurityQuestionsSerializer(serializers.ModelSerializer):
+class DietSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SecurityQuestions
-        fields = ['id', 'question']
+        model = Diet
+        fields = [
+            'id',
+            'name',
+            'description',
+            'carbMin',
+            'carbMax',
+            'protMin',
+            'protMax',
+            'fatsMin',
+            'fatsMax'
+        ]

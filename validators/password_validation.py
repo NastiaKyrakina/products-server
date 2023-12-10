@@ -2,7 +2,6 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 import re
 
-from products.models.security_settings import SecuritySettings
 
 
 # Наявність букв, знаків пунктуації та знаків арифметичних операцій.
@@ -28,5 +27,5 @@ class SymbolsIncludesValidator:
 
 
     def validation_enabled(self):
-        validation_enabled = SecuritySettings.objects.get(name='PasswordSymbolsCheck')
-        return validation_enabled and validation_enabled.enabled
+        validation_enabled = False
+        return validation_enabled

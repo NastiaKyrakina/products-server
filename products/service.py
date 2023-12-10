@@ -2,14 +2,7 @@ import math
 from functools import reduce
 
 import numpy as np
-from scipy.optimize import minimize
-
-
-energy_restrictions = dict({
-        'carbohydrates': (0.55, 0.6),
-        'proteins': (0.15, 0.20),
-        'fats': (0.2, 0.25),
-     })
+from scipy.optimize import minimize, rosen
 
 energy_per_components = dict({
         'carbohydrates': 4,
@@ -18,7 +11,7 @@ energy_per_components = dict({
      })
 
 
-def get_constraint_fun(name, constr_type, kkal_amount):
+def get_constraint_fun(name, constr_type, kkal_amount, energy_restrictions):
     def min_constraint(x: list, products):
         pr = products
         sum_energy = 0
@@ -35,7 +28,7 @@ def get_constraint_fun(name, constr_type, kkal_amount):
     return min_constraint if constr_type == 'min' else max_constraint
 
 
-def optimize_products_bucket(products, constr, max_sum, kkal_per_day, days = 1):
+def optimize_products_bucket(products, constr, max_sum, kkal_per_day, energy_restrictions, days = 1):
     kkal_amount = kkal_per_day*days
 
     def objective(x: list):
@@ -82,18 +75,19 @@ def optimize_products_bucket(products, constr, max_sum, kkal_per_day, days = 1):
 
     con1 = {'type': 'ineq', 'fun': price_constraint, 'args': [products]}
     con2 = {'type': 'eq', 'fun': energy_constraint, 'args': [products]}
-    con3 = {'type': 'ineq', 'fun': get_constraint_fun('carbohydrates', 'min', kkal_amount), 'args': [products]}
-    con4 = {'type': 'ineq', 'fun': get_constraint_fun('carbohydrates', 'max', kkal_amount), 'args': [products]}
-    con5 = {'type': 'ineq', 'fun': get_constraint_fun('fats', 'min', kkal_amount), 'args': [products]}
-    con6 = {'type': 'ineq', 'fun': get_constraint_fun('fats', 'max', kkal_amount), 'args': [products]}
-    con7 = {'type': 'ineq', 'fun': get_constraint_fun('proteins', 'min', kkal_amount), 'args': [products]}
-    con8 = {'type': 'ineq', 'fun': get_constraint_fun('proteins', 'max', kkal_amount), 'args': [products]}
+    con3 = {'type': 'ineq', 'fun': get_constraint_fun('carbohydrates', 'min', kkal_amount, energy_restrictions), 'args': [products]}
+    con4 = {'type': 'ineq', 'fun': get_constraint_fun('carbohydrates', 'max', kkal_amount, energy_restrictions), 'args': [products]}
+    con5 = {'type': 'ineq', 'fun': get_constraint_fun('fats', 'min', kkal_amount, energy_restrictions), 'args': [products]}
+    con6 = {'type': 'ineq', 'fun': get_constraint_fun('fats', 'max', kkal_amount, energy_restrictions), 'args': [products]}
+    con7 = {'type': 'ineq', 'fun': get_constraint_fun('proteins', 'min', kkal_amount, energy_restrictions), 'args': [products]}
+    con8 = {'type': 'ineq', 'fun': get_constraint_fun('proteins', 'max', kkal_amount, energy_restrictions), 'args': [products]}
 
     constr = [con1, con2, con3, con4, con5, con6, con7, con8]
     bounds = get_bounds()
     print('bounds', bounds)
     sol = minimize(objective, get_init_guess(products), method='SLSQP', bounds=bounds, constraints=constr)
     amounts = sol.x
+
     res = list()
     general = {
         'energy': 0,
@@ -115,13 +109,13 @@ def optimize_products_bucket(products, constr, max_sum, kkal_per_day, days = 1):
                 'name': product.get('name'),
                 'amount': round(amounts[index]),
                 'unit': product.get('unit') if product.get('unit') == 'шт' else 'гр',
-                'price': round(amounts[index] * product.get('price'), 4),
+                'price': round(amounts[index] * product.get('price'), 2),
                 'states': [{
                     'state': product.get('state'),
-                    'energy': round(amounts[index] * product.get('energy'), 4),
-                    'carbohydrates': round(amounts[index] * product.get('carbohydrates'), 4),
-                    'proteins': round(amounts[index] * product.get('proteins'), 4),
-                    'fats': round(amounts[index] * product.get('fats'), 4),
+                    'energy': round(amounts[index] * product.get('energy'), 2),
+                    'carbohydrates': round(amounts[index] * product.get('carbohydrates'), 2),
+                    'proteins': round(amounts[index] * product.get('proteins'), 2),
+                    'fats': round(amounts[index] * product.get('fats'), 2),
                 }]
             }
             res.append(product_res)
