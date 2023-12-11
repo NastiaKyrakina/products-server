@@ -1,32 +1,27 @@
 import json
 import logging
-from random import random, randrange
-from unicodedata import decimal
 
-from dj_rest_auth.jwt_auth import JWTCookieAuthentication
 from django.contrib.auth.models import User
-from django.core import serializers
-from django.core.exceptions import ValidationError
-from django.shortcuts import render
 
 # Create your views here.
-from django.http import HttpResponse, JsonResponse
-from rest_framework import permissions, status
-from rest_framework.decorators import authentication_classes
-from rest_framework.permissions import IsAuthenticated
+from django.http import HttpResponse
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework_simplejwt.backends import TokenBackend
 
-from products import product_prices_parcer
+from products.helpers import product_prices_parcer
+from products.helpers.json_to_exel import write_to_file
 from products.models import Category, ShopProduct, Restriction, Product, UserCalculations, ProductsBasket
 from products.models.diet import Diet
-from products.serializers.serializer import CategorySerializer, ShopProductSerializer, CategoryProductSerializer, \
+from products.models.diet_catefory_restriction import DietCategoryRestriction
+from products.models.diet_product_restriction import DietProductRestriction
+from products.serializers.serializer import ShopProductSerializer, CategoryProductSerializer, \
     RestrictionsSerializer, UserCalculationsSerializer, ProductsBasketSerializer, ProductSerializer, DietSerializer
 from products.service import optimize_products_bucket
 from datetime import datetime
-
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
+from rest_framework.decorators import api_view
 
 logger = logging.getLogger('django')
 
@@ -40,16 +35,17 @@ default_energy_restrictions = dict({
 class ProductCalcApiView(APIView):
     # add permission to check if user is authenticated
     # permission_classes = [permissions.IsAuthenticated]
-
+    @swagger_auto_schema(operation_description="Get list of products baskets for user", responses={200: ProductsBasketSerializer(many=True)})
     # 1. List all
     def get(self, request, *args, **kwargs):
         baskets = ProductsBasket.objects.all()
         serializer = ProductsBasketSerializer(baskets, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @swagger_auto_schema(operation_description="Optimize products buckets for user",
+                         responses={200: ProductsBasketSerializer()})
     def post(self, request, *args, **kwargs):
         print(request.data)
-        # serializer = SnippetSerializer(data=request.data)
         products = request.data.get('products')
         diet_id = request.data.get('dietId')
         custom_energy_restrictions = request.data.get('energyRestrictions')
@@ -57,9 +53,12 @@ class ProductCalcApiView(APIView):
         max_sum = request.data.get('maxSum')
         term = int(request.data.get('term'))
         shop_products = products if len(products) else ShopProduct.objects.prefetch_related('states').all()
-        restrictions = Restriction.objects.prefetch_related('product').all()
-        products_list = prepare_products_for_calc(shop_products, len(products) == 0, restrictions)
-
+        diet = Diet.objects.get(id = diet_id)
+        diet_restrictions = DietProductRestriction.objects.prefetch_related('restriction').filter(diet_id=diet_id).all();
+        print(diet_restrictions)
+        restrictions = Restriction.objects.prefetch_related('product').filter(default=True).all()
+        category_restrictions = DietCategoryRestriction.objects.filter(diet_id=diet_id).all()
+        products_list = prepare_products_for_calc(shop_products, len(products) == 0, diet_restrictions, category_restrictions)
         energy_restrictions = custom_energy_restrictions if custom_energy_restrictions else default_energy_restrictions
 
         sol = optimize_products_bucket(products_list, [], max_sum, energy_per_day, energy_restrictions, term)
@@ -77,40 +76,49 @@ class ProductCalcApiView(APIView):
         return Response({'optimization': sol, 'products': products_list}, status=status.HTTP_200_OK)
 
 
-def prepare_products_for_calc(shop_products, from_db, restrictions):
+def prepare_products_for_calc(shop_products, from_db, diet_restrictions, category_restrictions):
 
     products_list = list()
+    print(category_restrictions)
     for product in shop_products:
+        restricted_category = [x for x in category_restrictions if x.category_id == product.product.category.id]
+        print('restricted_category:', restricted_category)
+        if len(restricted_category) > 0:
+            continue
         states = product.states.all() if from_db else product.states
         parsed_restrictions = list()
-        product_restrictions = [x for x in restrictions if is_product_restriction(product.product.id, x)]
-        for restriction in product_restrictions:
-            amount = amount_to_gr(restriction.unit, float(str(restriction.amount)))
+        product_restrictions = [x for x in diet_restrictions if is_product_restriction(product.product.id, x)]
+        for diet_restriction in product_restrictions:
+            amount = amount_to_gr(diet_restriction.restriction.unit, float(str(diet_restriction.restriction.amount)))
             parsed_restrictions.append({
-                "comparator": restriction.comparator,
+                "comparator": diet_restriction.restriction.comparator,
                 "amount": amount,
-                'unit': restriction.unit,
+                'unit': diet_restriction.restriction.unit,
             })
-        print(parsed_restrictions)
         for state in states:
             amount = amount_to_gr(product.unit, float(str(product.amount)))
-            products_list.append({
-                'id': product.id,
-                'name': product.name,
-                'unit': product.unit,
-                'price': float(str(product.price)) / amount,
-                'amount': amount,
-                'energy': float(str(state.energy)) / 100,
-                'carbohydrates': float(str(state.carbohydrates)) / 100,
-                'proteins': float(str(state.proteins)) / 100,
-                'fats': float(str(state.fats)) / 100,
-                'restrictions': parsed_restrictions,
-            })
+            excludeProduct = False
+            for restriction in parsed_restrictions:
+                if restriction['amount'] == 0 and (restriction['comparator'] == 'LT' or restriction['comparator'] == 'GT'):
+                    excludeProduct = True
+            if  not excludeProduct:
+                products_list.append({
+                    'id': product.id,
+                    'name': product.name,
+                    'unit': product.unit,
+                    'price': float(str(product.price)) / amount,
+                    'amount': amount,
+                    'energy': float(str(state.energy)) / 100,
+                    'carbohydrates': float(str(state.carbohydrates)) / 100,
+                    'proteins': float(str(state.proteins)) / 100,
+                    'fats': float(str(state.fats)) / 100,
+                    'restrictions': parsed_restrictions,
+                })
     return products_list
 
 
-def is_product_restriction(product_id, restriction):
-    return product_id == restriction.product.id
+def is_product_restriction(product_id, diet_restrictions):
+    return product_id == diet_restrictions.restriction.product_id
 
 class CategoriesListApiView(APIView):
     # add permission to check if user is authenticated
@@ -131,9 +139,20 @@ class ProductsBasketApiView(APIView):
     # 1. List all
 
     def get(self, request, *args, **kwargs):
-        print(kwargs['id']);
+        downloadAsFile = request.query_params.get('downloadAsFile')
+        print(downloadAsFile)
         basket = ProductsBasket.objects.get(id=kwargs['id'])
         serializer = ProductsBasketSerializer(basket)
+        if downloadAsFile:
+            file_contend = write_to_file(json.loads(serializer.data.get('products')))
+            filename = "django_simple.xlsx"
+            response = HttpResponse(
+                file_contend,
+                content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            )
+            response["Content-Disposition"] = "attachment; filename=%s" % filename
+            return response
+
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     # def post(self, request, *args, **kwargs):
@@ -150,7 +169,8 @@ class RestrictionListApiView(APIView):
     # add permission to check if user is authenticated
     # permission_classes = [permissions.IsAuthenticated]
     # 1. List all
-
+    @swagger_auto_schema(operation_description="List of user restrictions",
+                         responses={200: RestrictionsSerializer()})
     def get(self, request, *args, **kwargs):
         print(request.user.pk)
         print(request.user.is_authenticated)
@@ -158,6 +178,8 @@ class RestrictionListApiView(APIView):
         serializer = RestrictionsSerializer(restrictions, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    @swagger_auto_schema(operation_description="Add user restriction", request_body=RestrictionsSerializer(),
+                         responses={200: RestrictionsSerializer()})
     def post(self, request, *args, **kwargs):
         product = Product.objects.get(pk=request.data.get('product'))
         data = request.data.copy()
@@ -170,9 +192,6 @@ class RestrictionListApiView(APIView):
 
 
 class ShopProductsListApiView(APIView):
-    # add permission to check if user is authenticated
-    # permission_classes = [permissions.IsAuthenticated]
-
     # 1. List all
     def get(self, request, *args, **kwargs):
         '''
@@ -181,6 +200,25 @@ class ShopProductsListApiView(APIView):
         shopProducts = ShopProduct.objects.prefetch_related('product', 'product__category', 'states').all()
         serializer = ShopProductSerializer(shopProducts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request, *args, **kwargs):
+        product = Product.objects.get(pk=request.data.get('product'))
+        data = request.data.copy()
+        data['product'] = product
+        shopProductSerializer = RestrictionsSerializer(data=data)
+        if shopProductSerializer.is_valid():
+            ShopProduct.objects.create(**data)
+            return Response(shopProductSerializer.data, status=status.HTTP_201_CREATED)
+        return Response(shopProductSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def update(self, request, *args, **kwargs):
+        shopProduct = ShopProduct.objects.get(pk=request.data.get('id'))
+        data = request.data.copy()
+        shopProductSerializer = RestrictionsSerializer(data=data)
+        if shopProductSerializer.is_valid():
+            shopProduct.update(**data)
+            return Response(shopProductSerializer.data, status=status.HTTP_201_CREATED)
+        return Response(shopProductSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProductsListApiView(APIView):
@@ -192,9 +230,16 @@ class ProductsListApiView(APIView):
         '''
         List all the todo items for given requested user
         '''
-        shopProducts = Product.objects.prefetch_related('category').all()
-        serializer = ProductSerializer(shopProducts, many=True)
+        products = Product.objects.prefetch_related('category').all()
+        serializer = ProductSerializer(products, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+    def post(self, request, *args, **kwargs):
+        data = request.data.copy()
+        productSerializer = ProductSerializer(data=data)
+        if productSerializer.is_valid():
+            Product.objects.create(**data)
+            return Response(productSerializer.data, status=status.HTTP_201_CREATED)
+        return Response(productSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class DietsListApiView(APIView):
     # add permission to check if user is authenticated

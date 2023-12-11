@@ -56,18 +56,8 @@ CORS_ALLOW_HEADERS = (
 
 # Application definition
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'COERCE_DECIMAL_TO_STRING': False,
-    # # 'DEFAULT_FILTER_BACKENDS': [
-    # #     'django_filters.rest_framework.DjangoFilterBackend'
-    # # ],
-    # # 'DEFAULT_PERMISSION_CLASSES': [
-    # #         'rest_framework.permissions.IsAuthenticated',
-    # # ],
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-    #     # 'rest_framework.authentication.BasicAuthentication',
-    #     # 'rest_framework.authentication.SessionAuthentication',
-    # ],
 
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
@@ -79,7 +69,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
 REST_AUTH_SERIALIZERS = {
@@ -103,6 +92,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'dj_rest_auth',
+    'drf_yasg',
     'corsheaders',
 ]
 
@@ -188,7 +178,10 @@ JWT_AUTH = {
     'ACCESS_TOKEN_LIFETIME': datetime.timedelta(hours=1),
     'REFRESH_TOKEN_LIFETIME': datetime.timedelta(days=1),
 }
-
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(hours=1),
+    "REFRESH_TOKEN_LIFETIME":  datetime.timedelta(days=1),
+}
 
 LOGGING = {
     "version": 1,
