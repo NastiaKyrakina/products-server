@@ -2,13 +2,13 @@ import math
 from functools import reduce
 
 import numpy as np
-from scipy.optimize import minimize, rosen
+from scipy.optimize import minimize
 
-energy_per_components = dict({
-        'carbohydrates': 4,
-        'proteins': 4,
-        'fats': 9,
-     })
+nutrients_energy = dict({
+    'fats': 9,
+    'proteins': 4,
+    'carbohydrates': 4,
+})
 
 
 def get_constraint_fun(name, constr_type, kkal_amount, energy_restrictions):
@@ -17,14 +17,14 @@ def get_constraint_fun(name, constr_type, kkal_amount, energy_restrictions):
         sum_energy = 0
         for index, xi in enumerate(x):
             sum_energy = sum_energy + xi*pr[index].get(name)
-        return sum_energy*energy_per_components.get(name) - kkal_amount*energy_restrictions.get(name)[0]
+        return sum_energy*nutrients_energy.get(name) - kkal_amount*energy_restrictions.get(name)[0]
 
     def max_constraint(x: list, products):
         pr = products
         sum_energy = 0
         for index, xi in enumerate(x):
             sum_energy = sum_energy + xi*pr[index].get(name)
-        return kkal_amount*energy_restrictions.get(name)[1] - sum_energy*energy_per_components.get(name)
+        return kkal_amount*energy_restrictions.get(name)[1] - sum_energy*nutrients_energy.get(name)
     return min_constraint if constr_type == 'min' else max_constraint
 
 

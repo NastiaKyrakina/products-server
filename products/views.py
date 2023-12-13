@@ -20,8 +20,8 @@ from products.serializers.serializer import ShopProductSerializer, CategoryProdu
 from products.service import optimize_products_bucket
 from datetime import datetime
 from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import api_view
+from drf_yasg.utils import swagger_auto_schema
 
 logger = logging.getLogger('django')
 
@@ -38,7 +38,7 @@ class ProductCalcApiView(APIView):
     @swagger_auto_schema(operation_description="Get list of products baskets for user", responses={200: ProductsBasketSerializer(many=True)})
     # 1. List all
     def get(self, request, *args, **kwargs):
-        baskets = ProductsBasket.objects.all()
+        baskets = ProductsBasket.objects.filter(user_id=request.user.pk)
         serializer = ProductsBasketSerializer(baskets, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

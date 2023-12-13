@@ -73,13 +73,6 @@ class ProductsBasketSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'creation_date', 'period', 'max_sum', 'products']
 
 
-# user = models.ForeignKey(User, on_delete=models.CASCADE)
-# name = models.CharField(max_length=250)
-# creation_date = models.DateTimeField(auto_now_add=True)
-# period = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(366)])
-# max_sum = models.FloatField()
-# products = models.JSONField()
-
 class DietSerializer(serializers.ModelSerializer):
     class Meta:
         model = Diet
